@@ -56,7 +56,7 @@ on:
         - vendor_boot
       FILE_TO_CHECK:
         description: 'Specify which libs to check' # Use it know what kind of dependencies your missing for decryption.
-        required: true
+        required: false
         default: 'system/bin/qseecomd'
 
 jobs:
