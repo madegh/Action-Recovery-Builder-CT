@@ -22,7 +22,7 @@ on:
         options:
         - twrp-12.1
         - twrp-11
-        - twrp-10-deprecated
+        - twrp-10.0-deprecated
         - android-12.1
         - android-11.0
         - android-10.0
