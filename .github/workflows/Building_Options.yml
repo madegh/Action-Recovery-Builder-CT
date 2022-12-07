@@ -1,4 +1,4 @@
-name: Recovery Build
+name: Recovery Build Organizations
 
 on:
   workflow_dispatch:
@@ -6,11 +6,31 @@ on:
       MANIFEST_URL:
         description: 'MANIFEST_URL (if using SSH keys, use git@github.com:repo URL format)'
         required: true
-        default: 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git'
+        default: ''
+        type: choice
+        options:
+        - https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git
+        - https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git
+        - https://github.com/PitchBlackRecoveryProject/manifest_pb.git
+        - https://gitlab.com/OrangeFox/bootable/Recovery.git
+        - ttps://github.com/SHRP/manifest.git
       MANIFEST_BRANCH:
         description: 'MANIFEST_BRANCH'
         required: true
         default: 'twrp-12.1'
+        type: choice
+        options:
+        - twrp-11
+        - twrp-10-deprecated
+        - android-12.1
+        - android-11.0
+        - android-10.0
+        - fox_12.1
+        - fox_11.0
+        - fox_10.0
+        - shrp-12.1
+        - v3_11.0
+        - v3_10.0
       DEVICE_TREE_URL:
         description: 'DEVICE_TREE_URL'
         required: true
@@ -34,14 +54,22 @@ on:
         required: true
         default: 'I003D'
       MAKEFILE_NAME:
-        description: 'MAKEFILE_NAME'
+        description: 'MAKEFILE_NAME (you need to know the correct branch to use coming from each Organization)'
         required: true
-        default: 'twrp_I003D'
+        default: 'twrp'
+        type: choice
+        options:
+        - twrp
+        - omni
       BUILD_TARGET:
         description: 'BUILD_TARGET'
         required: true
         default: 'recovery'
-
+        type: choice
+        options:
+        - boot
+        - recovery
+        - vendor_boot
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
@@ -147,7 +175,7 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
+        lunch ${{ github.event.inputs.MAKEFILE_NAME }}_${{ github.event.inputs.DEVICE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
