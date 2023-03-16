@@ -44,12 +44,12 @@ on:
         description: 'DEVICE_PATH'
         required: true
         default: 'device/asus/I003D'
-      COMMON_TREE_URL:
-        description: 'COMMON_TREE_URL (if no common tree, leave blank)'
-        required: false
-      COMMON_PATH:
-        description: 'COMMON_PATH (if no common tree, leave blank)'
-        required: false
+#      COMMON_TREE_URL:
+#        description: 'COMMON_TREE_URL (if no common tree, leave blank)'
+#        required: false
+#      COMMON_PATH:
+#        description: 'COMMON_PATH (if no common tree, leave blank)'
+#        required: false
       DEVICE_NAME:
         description: 'DEVICE_NAME'
         required: true
@@ -74,7 +74,10 @@ on:
       BUILD_VENDORBOOT:
         description: 'BUILD_VENDORBOOT'
         required: false
-        default: 'vendor_boot'
+        default: ''
+        type: choice
+        options:
+        - vendor_boot
 
 jobs:
   build:
@@ -94,7 +97,6 @@ jobs:
         echo "Device Name: ${{ github.event.inputs.DEVICE_NAME }}"
         echo "Makefile Name: ${{ github.event.inputs.MAKEFILE_NAME }}"
         echo "Build Target: ${{ github.event.inputs.BUILD_TARGET }}.img"
-        echo "Build vendor_boot: ${{ github.event.inputs.BUILD_VENDORBOOT }}.img"
         echo "::endgroup::"
  
     # You might want to Checkout your repo first, but not mandatory
@@ -149,13 +151,13 @@ jobs:
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }}
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
-    - name: Clone common tree
-      if: |
-        github.event.inputs.COMMON_TREE_URL != null
-        && github.event.inputs.COMMON_PATH != null
-      run: |
-        git clone ${{ github.event.inputs.COMMON_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.COMMON_PATH }}
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+#    - name: Clone common tree
+#      if: |
+#        github.event.inputs.COMMON_TREE_URL != null
+#        && github.event.inputs.COMMON_PATH != null
+#      run: |
+#        git clone ${{ github.event.inputs.COMMON_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.COMMON_PATH }}
+#      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Check Build Tree
       uses: haya14busa/action-cond@v1
@@ -181,7 +183,7 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
+        lunch ${{ github.event.inputs.MAKEFILE_NAME }}_${{ github.event.inputs.DEVICE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
