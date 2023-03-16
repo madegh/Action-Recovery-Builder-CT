@@ -75,6 +75,7 @@ on:
         description: 'BUILD_VENDORBOOT'
         required: false
         default: 'vendor_boot'
+
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
@@ -93,6 +94,7 @@ jobs:
         echo "Device Name: ${{ github.event.inputs.DEVICE_NAME }}"
         echo "Makefile Name: ${{ github.event.inputs.MAKEFILE_NAME }}"
         echo "Build Target: ${{ github.event.inputs.BUILD_TARGET }}.img"
+        echo "Build vendor_boot: ${{ github.event.inputs.BUILD_VENDORBOOT }}.img"
         echo "::endgroup::"
  
     # You might want to Checkout your repo first, but not mandatory
