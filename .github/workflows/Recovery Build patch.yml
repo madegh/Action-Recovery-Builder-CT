@@ -143,7 +143,7 @@ jobs:
 
     - name: Clone device tree
       run: |
-        git apply -v ./${{ github.event.inputs.DEVICE_PATH }}/patches/0001-persist_settings.patch
+        git apply -v ${{ github.event.inputs.DEVICE_PATH }}/patches/0001-persist_settings.patch
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: false
 
