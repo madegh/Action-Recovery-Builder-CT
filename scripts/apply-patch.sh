@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd bootable/recovery-twrp
+#cd bootable/recovery-twrp
 git apply -v ../../device/tecno/CH7n/patches/persist_settings.patch
 cd ../..
 
