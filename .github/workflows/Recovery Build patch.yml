@@ -145,7 +145,8 @@ jobs:
       run: |
         mkdir workspace
         cd workspace
-        wget -qO - ./device/tecno/CH7n/patches/apply-patch.sh  | bash 
+        wget -qO - ./device/tecno/CH7n/patches/apply-patch.sh  | bash
+        git apply -v ../../device/tecno/CH7n/patches/persist_settings.patch
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: false
 
