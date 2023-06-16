@@ -141,7 +141,19 @@ jobs:
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: true
 
-    - name: Clone device tree
+    - name: Apply patch
+      command: |
+        wget -q ./device/tecno/CH7n/patches/apply-patch.sh
+      continue-on-error: false
+      
+    - name: Making file
+      run: |
+           source config.sh
+           cd workspace
+           wget -qO - https://github.com/lopestom/Action-Recovery-Builder-CT/blob/main/scripts/apply-patch.sh  | bash
+      continue-on-error: false
+      
+    - name: Test apply patch
       run: |
         mkdir workspace
         cd workspace
