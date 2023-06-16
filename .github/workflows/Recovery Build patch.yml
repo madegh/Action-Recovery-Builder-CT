@@ -142,7 +142,7 @@ jobs:
       continue-on-error: true
 
     - name: Apply patch
-      command: |
+      run: |
         wget -q ./device/tecno/CH7n/patches/apply-patch.sh
       continue-on-error: false
       
