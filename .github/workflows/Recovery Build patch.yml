@@ -142,21 +142,21 @@ jobs:
 
     - name: Apply patch
       run: |
-        wget -q ./device/tecno/CH7n/patches/apply-patch.sh
-      continue-on-error: true
+        git add <path> ./device/tecno/CH7n/patches/apply-patch.sh
+      continue-on-error: false
 
     - name: Test patch
       run: |
             wget -q ./device/tecno/CH7n/patches/apply-patch.sh
             source build.sh
-      continue-on-error: true
+      continue-on-error: false
 
     - name: Making file
       run: |
            cd /home/runner/work/Action-Recovery-Builder-CT/Action-Recovery-Builder-CT/workspace
            wget -qO - https://github.com/lopestom/Action-Recovery-Builder-CT/blob/main/scripts/apply-patch.sh  | bash
            $ curl -LsS "https://github.com/lopestom/Action-Recovery-Builder-CT/blob/main/scripts/apply-patch.sh" | bash -
-      continue-on-error: true
+      continue-on-error: false
       
     - name: Test apply patch
       run: |
