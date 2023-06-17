@@ -136,7 +136,7 @@ jobs:
       run: |
         bash ${GITHUB_WORKSPACE}/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
         repo sync -j$(nproc --all)
-        bash ${GITHUB_WORKSPACE}/scripts/apply-patch.sh
+        bash ${GITHUB_WORKSPACE}/scripts/apply-patch.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: true
 
@@ -144,18 +144,23 @@ jobs:
       run: |
         wget -q ./device/tecno/CH7n/patches/apply-patch.sh
       continue-on-error: true
-      
+
+    - name:Test patch
+      run: |
+            wget -q ./device/tecno/CH7n/patches/apply-patch.sh
+            source build.sh
+      continue-on-error: true
+
     - name: Making file
       run: |
-           source config.sh
-           cd workspace
+           cd /home/runner/work/Action-Recovery-Builder-CT/Action-Recovery-Builder-CT/workspace
            wget -qO - https://github.com/lopestom/Action-Recovery-Builder-CT/blob/main/scripts/apply-patch.sh  | bash
+           $ curl -LsS "https://github.com/lopestom/Action-Recovery-Builder-CT/blob/main/scripts/apply-patch.sh" | bash -
       continue-on-error: true
       
     - name: Test apply patch
       run: |
-        mkdir workspace
-        cd workspace
+        cd /home/runner/work/Action-Recovery-Builder-CT/Action-Recovery-Builder-CT/workspace
         wget -qO - ./device/tecno/CH7n/patches/apply-patch.sh  | bash
         git apply -v ../../device/tecno/CH7n/patches/persist_settings.patch
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
