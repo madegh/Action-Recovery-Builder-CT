@@ -137,12 +137,14 @@ jobs:
         bash ${GITHUB_WORKSPACE}/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
         repo sync -j$(nproc --all)
         bash ${GITHUB_WORKSPACE}/scripts/apply-patch.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
+        patch < persist_settings.patch
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: true
 
-    - name: Sync Device Dependencies
+    - name: Testing patch
       run: |
-        bash ${GITHUB_WORKSPACE}/scripts/apply-patch.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
+        cd workspace/device/tecno/CH7n/patches
+        patch < persist_settings.patch
       continue-on-error: false
 
     - name: Set Swap Space
