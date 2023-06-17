@@ -136,8 +136,6 @@ jobs:
       run: |
         bash ${GITHUB_WORKSPACE}/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
         repo sync -j$(nproc --all)
-        bash ${GITHUB_WORKSPACE}/scripts/apply-patch.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
-        patch < persist_settings.patch
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       continue-on-error: true
 
