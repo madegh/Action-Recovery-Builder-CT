@@ -145,7 +145,7 @@ jobs:
         wget -q ./device/tecno/CH7n/patches/apply-patch.sh
       continue-on-error: true
 
-    - name:Test patch
+    - name: Test patch
       run: |
             wget -q ./device/tecno/CH7n/patches/apply-patch.sh
             source build.sh
