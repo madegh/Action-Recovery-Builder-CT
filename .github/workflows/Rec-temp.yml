@@ -1,4 +1,4 @@
-name: Rec-temp
+name: Building recovery
 
 on:
 #  release:
@@ -15,31 +15,20 @@ on:
 env:
   MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
   DEVICE: WP10
-  DT_LINK: https://github.com/madegh/TWRP_Device_ZTE_9000N
-  DT_PATH: device/zte/P683S10
+  DT_LINK: https://github.com/lopestom/twrp_device_oukitel_WP10_5G
+  DT_PATH: device/oukitel/WP10
   TARGET: recoveryimage
   TZ: Asia/manila
 
 jobs:
-    build:
-      if: github.event.repository.owner.id == github.event.sender.id
-      runs-on: ubuntu-latest
-      permissions:
-        contents: write
-      steps:
-      - name: Display Run Parameters
-        run: |
-          echo "::group::User Environment Variables"
-          echo "Manifest URL: ${{ github.event.inputs.MANIFEST_URL }}"
-          echo "Manifest Branch: ${{ github.event.inputs.MANIFEST_BRANCH }}"
-          echo "Device Tree URL: ${{ github.event.inputs.DEVICE_TREE_URL }}"
-          echo "Device Tree Branch: ${{ github.event.inputs.DEVICE_TREE_BRANCH }}"
-          echo "Device Path: ${{ github.event.inputs.DEVICE_PATH }}"
-          echo "Device Name: ${{ github.event.inputs.DEVICE_NAME }}"
-          echo "Makefile Name: ${{ github.event.inputs.MAKEFILE_NAME }}"
-          echo "Build Target: ${{ github.event.inputs.BUILD_TARGET }}.img"
-          echo "::endgroup::"
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@master
          
+
        - name: Initializing environment
          run: |
             sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
