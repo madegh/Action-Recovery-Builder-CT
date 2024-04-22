@@ -1,6 +1,6 @@
 env:
     MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-10.0-deprecated
-    DT_LINK: https://github.com/madegh/TWRP_Device_ZTE_9000N.git
+    DT_LINK: https://github.com/madegh/TWRP_Device_ZTE_9000N.git -b 9000n
     DEVICE: P683S10
     OEM: ZTE
     DT_PATH: device/zte/P683S10
