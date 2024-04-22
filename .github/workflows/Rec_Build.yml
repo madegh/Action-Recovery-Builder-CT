@@ -14,9 +14,9 @@ on:
 
 env:
   MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni -b twrp-10.0-deprecated
-  DEVICE: HCE600
-  DT_LINK: https://github.com/lopestom/twrp_device_chcnav_HCE600
-  DT_PATH: device/chcnav/HCE600
+  DEVICE: P683S10
+  DT_LINK: https://github.com/madegh/TWRP_Device_ZTE_9000N
+  DT_PATH: device/zte/P683S10
   TARGET: recoveryimage
   TZ: Asia/manila
 
