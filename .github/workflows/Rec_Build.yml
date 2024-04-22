@@ -55,21 +55,21 @@ jobs:
        - name: Checkout device tree
          uses: actions/checkout@v2
          with:
-          path: twrp/device/chcnav/HCE600
+          path: twrp/device/zte/P683S10
              
        - name: Build
          run: |
               PATH=~/bin:$PATH
               cd twrp
-              export ALLOW_MISSING_DEPENDENCIES=true && source build/envsetup.sh &&lunch omni_HCE600-eng && mka $TARGET -j5
-              cp  out/target/product/HCE600/recovery.img    out/target/product/HCE600/recovery-HCE600-A10-$(date +"%Y%m%d-%H%M").img  
+              export ALLOW_MISSING_DEPENDENCIES=true && source build/envsetup.sh &&lunch omni_P683S10-eng && mka $TARGET -j5
+              cp  out/target/product/P683S10/recovery.img    out/target/product/HCE600/recovery-P683S10-A10-$(date +"%Y%m%d-%H%M").img  
              
        - name: Release recovery image
          uses: softprops/action-gh-release@v1
          env:
           GITHUB_TOKEN: ${{ secrets.TEST }}
          with:
-          tag_name: HCE600_A10
+          tag_name: P683S10_A10
           name: TWRP352_10
           files: | 
-            twrp/out/target/product/HCE600/recovery*.img
+            twrp/out/target/product/P683S10/recovery*.img
