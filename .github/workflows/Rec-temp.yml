@@ -21,24 +21,24 @@ env:
   TZ: Asia/manila
 
 jobs:
-  build:
-    if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - name: Display Run Parameters
-      run: |
-        echo "::group::User Environment Variables"
-        echo "Manifest URL: ${{ github.event.inputs.MANIFEST_URL }}"
-        echo "Manifest Branch: ${{ github.event.inputs.MANIFEST_BRANCH }}"
-        echo "Device Tree URL: ${{ github.event.inputs.DEVICE_TREE_URL }}"
-        echo "Device Tree Branch: ${{ github.event.inputs.DEVICE_TREE_BRANCH }}"
-        echo "Device Path: ${{ github.event.inputs.DEVICE_PATH }}"
-        echo "Device Name: ${{ github.event.inputs.DEVICE_NAME }}"
-        echo "Makefile Name: ${{ github.event.inputs.MAKEFILE_NAME }}"
-        echo "Build Target: ${{ github.event.inputs.BUILD_TARGET }}.img"
-        echo "::endgroup::"
+    build:
+      if: github.event.repository.owner.id == github.event.sender.id
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+      - name: Display Run Parameters
+        run: |
+          echo "::group::User Environment Variables"
+          echo "Manifest URL: ${{ github.event.inputs.MANIFEST_URL }}"
+          echo "Manifest Branch: ${{ github.event.inputs.MANIFEST_BRANCH }}"
+          echo "Device Tree URL: ${{ github.event.inputs.DEVICE_TREE_URL }}"
+          echo "Device Tree Branch: ${{ github.event.inputs.DEVICE_TREE_BRANCH }}"
+          echo "Device Path: ${{ github.event.inputs.DEVICE_PATH }}"
+          echo "Device Name: ${{ github.event.inputs.DEVICE_NAME }}"
+          echo "Makefile Name: ${{ github.event.inputs.MAKEFILE_NAME }}"
+          echo "Build Target: ${{ github.event.inputs.BUILD_TARGET }}.img"
+          echo "::endgroup::"
          
        - name: Initializing environment
          run: |
