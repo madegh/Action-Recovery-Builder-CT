@@ -14,9 +14,9 @@ on:
 
 env:
   MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
-  DEVICE: WP10
-  DT_LINK: https://github.com/lopestom/twrp_device_oukitel_WP10_5G
-  DT_PATH: device/oukitel/WP10
+  DEVICE: P683S10
+  DT_LINK: https://github.com/madegh/TWRP_Device_ZTE_9000N
+  DT_PATH: device/zte/P683S10
   TARGET: recoveryimage
   TZ: Asia/manila
 
@@ -60,21 +60,21 @@ jobs:
        - name: Checkout device tree
          uses: actions/checkout@v2
          with:
-          path: twrp/device/oukitel/WP10
+          path: twrp/device/zte/P683S10
              
        - name: Build
          run: |
               PATH=~/bin:$PATH
               cd twrp
-              export ALLOW_MISSING_DEPENDENCIES=true && source build/envsetup.sh &&lunch twrp_WP10-eng && mka $TARGET -j5
-              cp  out/target/product/WP10/recovery.img    out/target/product/WP10/recovery-WP10-A10_A11.img  
+              export ALLOW_MISSING_DEPENDENCIES=true && source build/envsetup.sh &&lunch twrp_P683S10-eng && mka $TARGET -j5
+              cp  out/target/product/P683S10/recovery.img    out/target/product/P683S10/recovery-P683S10-A10_A11.img  
              
        - name: Release recovery image
          uses: softprops/action-gh-release@v1
          env:
           GITHUB_TOKEN: ${{ secrets.TEST }}
          with:
-          tag_name: OUKITEL_WP10_5G-V11
+          tag_name: ZTE_P683S10_5G-V11
           name: TWRP37x_11
           files: | 
-            twrp/out/target/product/WP10/recovery*.img
+            twrp/out/target/product/P683S10/recovery*.img
